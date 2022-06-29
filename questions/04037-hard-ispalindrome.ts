@@ -11,9 +11,10 @@ type cases = [
 ];
 
 // ============= Your Code Here =============
-type IsPalindrome<T extends string | number> =
-  `${T}` extends `${infer L}${infer NT}${infer R}`
-    ? L extends R
-      ? IsPalindrome<NT>
-      : false
-    : true;
+type Reverse<S extends string> = S extends `${infer First}${infer Rest}`
+  ? `${Reverse<Rest>}${First}`
+  : S;
+
+type IsPalindrome<T extends string | number> = `${T}` extends Reverse<`${T}`>
+  ? true
+  : false;
